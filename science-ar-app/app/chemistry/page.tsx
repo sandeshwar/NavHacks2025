@@ -47,6 +47,7 @@ export default function ChemistryPage() {
   ];
 
   const ActiveComponent = demos.find(d => d.id === activeDemo)?.component;
+  const cameraPosition: [number, number, number] = activeDemo === 'periodic' ? [0, 0, 9] : [0, 0, 8];
 
   return (
     <ModuleLayout
@@ -73,7 +74,7 @@ export default function ChemistryPage() {
         {/* 3D Viewer - 3 columns */}
         <div className="lg:col-span-3">
           <div className="bg-slate-900 rounded-lg border border-slate-800 overflow-hidden" style={{ height: '700px' }}>
-            <Scene3D cameraPosition={[0, 0, 8]}>
+            <Scene3D cameraPosition={cameraPosition}>
               {ActiveComponent && <ActiveComponent />}
             </Scene3D>
           </div>

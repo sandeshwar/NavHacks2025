@@ -1,19 +1,8 @@
 'use client';
 
-import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
 import { Sphere, Cylinder } from '@react-three/drei';
-import * as THREE from 'three';
 
 export default function WaterMoleculeDemo() {
-  const moleculeRef = useRef<THREE.Group>(null);
-
-  useFrame((state) => {
-    if (moleculeRef.current) {
-      moleculeRef.current.rotation.y = state.clock.elapsedTime * 0.3;
-    }
-  });
-
   // Water molecule geometry: H-O-H with 104.5° angle
   const bondLength = 1.2;
   const angle = (104.5 * Math.PI) / 180 / 2;
@@ -31,7 +20,7 @@ export default function WaterMoleculeDemo() {
   ];
 
   return (
-    <group ref={moleculeRef}>
+    <group>
       {/* Oxygen atom (red) */}
       <Sphere args={[0.5, 32, 32]} position={[0, 0, 0]}>
         <meshStandardMaterial 

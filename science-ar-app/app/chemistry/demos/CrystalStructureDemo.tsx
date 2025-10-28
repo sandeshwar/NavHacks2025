@@ -1,20 +1,9 @@
 'use client';
 
-import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
 import { Sphere, Line } from '@react-three/drei';
 import * as THREE from 'three';
 
 export default function CrystalStructureDemo() {
-  const crystalRef = useRef<THREE.Group>(null);
-
-  useFrame((state) => {
-    if (crystalRef.current) {
-      crystalRef.current.rotation.y = state.clock.elapsedTime * 0.3;
-      crystalRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.2) * 0.1;
-    }
-  });
-
   // Create cubic crystal lattice (NaCl structure)
   const latticeSize = 3;
   const spacing = 1.2;
@@ -54,7 +43,7 @@ export default function CrystalStructureDemo() {
   });
 
   return (
-    <group ref={crystalRef}>
+    <group>
       {/* Atoms */}
       {atoms.map((atom, index) => (
         <Sphere 

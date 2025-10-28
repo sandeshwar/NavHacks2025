@@ -1,13 +1,12 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Sphere } from '@react-three/drei';
 import * as THREE from 'three';
 
 export default function ChemicalReactionDemo() {
   const [reactionProgress, setReactionProgress] = useState(0);
-  const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state, delta) => {
     // Animate reaction progress
@@ -15,10 +14,6 @@ export default function ChemicalReactionDemo() {
       const next = prev + delta * 0.3;
       return next > 2 ? 0 : next;
     });
-
-    if (groupRef.current) {
-      groupRef.current.rotation.y = state.clock.elapsedTime * 0.2;
-    }
   });
 
   // H2 + O2 -> H2O reaction visualization
@@ -45,7 +40,7 @@ export default function ChemicalReactionDemo() {
   const productOpacity = phase > 0.7 ? (phase - 0.7) / 0.3 : 0;
 
   return (
-    <group ref={groupRef}>
+    <group>
       {/* Reactants - becoming transparent as reaction progresses */}
       <group>
         {/* H2 molecule 1 */}

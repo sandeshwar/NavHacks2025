@@ -1,21 +1,9 @@
 'use client';
 
-import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
 import { Sphere, Cylinder, Line } from '@react-three/drei';
 import * as THREE from 'three';
 
 export default function MagneticFieldDemo() {
-  const fieldLinesRef = useRef<THREE.Group>(null);
-  const time = useRef(0);
-
-  useFrame((state, delta) => {
-    time.current += delta;
-    if (fieldLinesRef.current) {
-      fieldLinesRef.current.rotation.y = time.current * 0.3;
-    }
-  });
-
   // Generate magnetic field lines
   const fieldLines = [];
   const numLines = 12;
@@ -58,7 +46,7 @@ export default function MagneticFieldDemo() {
       </group>
 
       {/* Magnetic field lines */}
-      <group ref={fieldLinesRef}>
+      <group>
         {fieldLines.map((points, index) => (
           <Line
             key={index}

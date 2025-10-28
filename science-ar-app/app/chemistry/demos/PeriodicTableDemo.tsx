@@ -1,7 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useState } from 'react';
 import { Box, Text, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { elements as allElements, Element as ChemElement } from '../data/elements';
@@ -17,16 +16,8 @@ interface Element {
 }
 
 export default function PeriodicTableDemo() {
-  const groupRef = useRef<THREE.Group | null>(null);
   const [hoveredElement, setHoveredElement] = useState<number | null>(null);
   const [selectedElement, setSelectedElement] = useState<number | null>(null);
-  const [rotationEnabled, setRotationEnabled] = useState(true);
-
-  useFrame((state) => {
-    if (groupRef.current && rotationEnabled) {
-      groupRef.current.rotation.y = state.clock.elapsedTime * 0.1;
-    }
-  });
 
   // Complete periodic table (first 36 elements for visibility)
   
@@ -55,7 +46,7 @@ export default function PeriodicTableDemo() {
   const centerRow = (minRow + maxRow) / 2;
 
   return (
-    <group ref={groupRef}>
+    <group>
       {elements.map((element, index) => {
         const isHovered = hoveredElement === index;
         const scale = isHovered ? 1.15 : 1;
@@ -70,18 +61,9 @@ export default function PeriodicTableDemo() {
             <Box 
               args={[0.6, 0.6, 0.15]} 
               scale={scale}
-              onPointerOver={() => {
-                setHoveredElement(index);
-                setRotationEnabled(false);
-              }}
-              onPointerOut={() => {
-                setHoveredElement(null);
-                if (selectedElement === null) setRotationEnabled(true);
-              }}
-              onClick={() => {
-                setSelectedElement(index);
-                setRotationEnabled(false);
-              }}
+              onPointerOver={() => setHoveredElement(index)}
+              onPointerOut={() => setHoveredElement(null)}
+              onClick={() => setSelectedElement(index)}
             >
               <meshStandardMaterial 
                 color={color}
@@ -157,7 +139,7 @@ export default function PeriodicTableDemo() {
                 <div className="bg-slate-900 border border-slate-700 rounded-lg p-3 shadow-xl min-w-[220px]">
                   <div className="flex items-center justify-between mb-2">
                     <div className="text-white font-bold text-lg">{element.symbol}</div>
-                    <button onClick={(e) => { e.stopPropagation(); setSelectedElement(null); setRotationEnabled(true); }} className="text-slate-400 hover:text-white">×</button>
+                    <button onClick={(e) => { e.stopPropagation(); setSelectedElement(null); }} className="text-slate-400 hover:text-white">×</button>
                   </div>
                   <div className="text-slate-300 text-sm">{element.name}</div>
                   <div className="mt-2 grid grid-cols-2 gap-2 text-xs text-slate-400">

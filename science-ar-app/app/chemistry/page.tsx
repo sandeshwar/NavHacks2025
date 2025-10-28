@@ -4,13 +4,14 @@ import { useState } from 'react';
 import ModuleLayout from '@/components/ModuleLayout';
 import InteractiveCard from '@/components/InteractiveCard';
 import Scene3D from '@/components/Scene3D';
-import { Atom, FlaskConical, Sparkles, Grid3x3 } from 'lucide-react';
+import { Atom, FlaskConical, Sparkles, Grid3x3, Leaf } from 'lucide-react';
 import WaterMoleculeDemo from './demos/WaterMoleculeDemo';
 import ChemicalReactionDemo from './demos/ChemicalReactionDemo';
 import CrystalStructureDemo from './demos/CrystalStructureDemo';
 import PeriodicTableDemo from './demos/PeriodicTableDemo';
+import PhotosynthesisDemo from './demos/PhotosynthesisDemo';
 
-type DemoType = 'water' | 'reaction' | 'crystal' | 'periodic' | null;
+type DemoType = 'water' | 'reaction' | 'crystal' | 'periodic' | 'photosynthesis' | null;
 
 export default function ChemistryPage() {
   const [activeDemo, setActiveDemo] = useState<DemoType>('water');
@@ -43,6 +44,13 @@ export default function ChemistryPage() {
       description: 'Interactive element visualization',
       icon: <Sparkles className="w-6 h-6 text-fuchsia-400" />,
       component: PeriodicTableDemo
+    },
+    {
+      id: 'photosynthesis' as DemoType,
+      title: 'Photosynthesis Process',
+      description: 'Animated cause-effect infographic',
+      icon: <Leaf className="w-6 h-6 text-green-400" />,
+      component: PhotosynthesisDemo
     }
   ];
 
@@ -71,20 +79,26 @@ export default function ChemistryPage() {
           ))}
         </div>
 
-        {/* 3D Viewer - 3 columns */}
+        {/* 3D Viewer / 2D Infographic - 3 columns */}
         <div className="lg:col-span-3">
           <div className="bg-slate-900 rounded-lg border border-slate-800 overflow-hidden" style={{ height: '700px' }}>
-            <Scene3D cameraPosition={cameraPosition}>
-              {ActiveComponent && <ActiveComponent />}
-            </Scene3D>
+            {activeDemo === 'photosynthesis' ? (
+              ActiveComponent && <ActiveComponent />
+            ) : (
+              <Scene3D cameraPosition={cameraPosition}>
+                {ActiveComponent && <ActiveComponent />}
+              </Scene3D>
+            )}
           </div>
           
           {/* Controls Info */}
-          <div className="mt-4 p-3 bg-slate-900 rounded-lg border border-slate-800">
-            <p className="text-slate-400 text-sm">
-              <strong className="text-white">Controls:</strong> Left-click + drag to rotate • Right-click + drag to pan • Scroll to zoom
-            </p>
-          </div>
+          {activeDemo !== 'photosynthesis' && (
+            <div className="mt-4 p-3 bg-slate-900 rounded-lg border border-slate-800">
+              <p className="text-slate-400 text-sm">
+                <strong className="text-white">Controls:</strong> Left-click + drag to rotate • Right-click + drag to pan • Scroll to zoom
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </ModuleLayout>

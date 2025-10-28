@@ -4,13 +4,14 @@ import { useState } from 'react';
 import ModuleLayout from '@/components/ModuleLayout';
 import InteractiveCard from '@/components/InteractiveCard';
 import Scene3D from '@/components/Scene3D';
-import { Orbit, Waves, Magnet, Zap } from 'lucide-react';
+import { Orbit, Waves, Magnet, Zap, Scale } from 'lucide-react';
 import PendulumDemo from './demos/PendulumDemo';
 import WaveDemo from './demos/WaveDemo';
 import MagneticFieldDemo from './demos/MagneticFieldDemo';
 import ElectricCircuitDemo from './demos/ElectricCircuitDemo';
+import NewtonLawsDemo from './demos/NewtonLawsDemo';
 
-type DemoType = 'pendulum' | 'wave' | 'magnetic' | 'circuit' | null;
+type DemoType = 'pendulum' | 'wave' | 'magnetic' | 'circuit' | 'newton' | null;
 
 export default function PhysicsPage() {
   const [activeDemo, setActiveDemo] = useState<DemoType>('pendulum');
@@ -43,6 +44,13 @@ export default function PhysicsPage() {
       description: 'Understand current flow and Ohm\'s law',
       icon: <Zap className="w-6 h-6 text-yellow-400" />,
       component: ElectricCircuitDemo
+    },
+    {
+      id: 'newton' as DemoType,
+      title: 'Newton\'s Laws',
+      description: 'Animated cause-effect infographic',
+      icon: <Scale className="w-6 h-6 text-orange-400" />,
+      component: NewtonLawsDemo
     }
   ];
 
@@ -70,20 +78,26 @@ export default function PhysicsPage() {
           ))}
         </div>
 
-        {/* 3D Viewer - 3 columns */}
+        {/* 3D Viewer / 2D Infographic - 3 columns */}
         <div className="lg:col-span-3">
           <div className="bg-slate-900 rounded-lg border border-slate-800 overflow-hidden" style={{ height: '700px' }}>
-            <Scene3D cameraPosition={[0, 2, 8]}>
-              {ActiveComponent && <ActiveComponent />}
-            </Scene3D>
+            {activeDemo === 'newton' ? (
+              ActiveComponent && <ActiveComponent />
+            ) : (
+              <Scene3D cameraPosition={[0, 2, 8]}>
+                {ActiveComponent && <ActiveComponent />}
+              </Scene3D>
+            )}
           </div>
           
           {/* Controls Info */}
-          <div className="mt-4 p-3 bg-slate-900 rounded-lg border border-slate-800">
-            <p className="text-slate-400 text-sm">
-              <strong className="text-white">Controls:</strong> Left-click + drag to rotate • Right-click + drag to pan • Scroll to zoom
-            </p>
-          </div>
+          {activeDemo !== 'newton' && (
+            <div className="mt-4 p-3 bg-slate-900 rounded-lg border border-slate-800">
+              <p className="text-slate-400 text-sm">
+                <strong className="text-white">Controls:</strong> Left-click + drag to rotate • Right-click + drag to pan • Scroll to zoom
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </ModuleLayout>

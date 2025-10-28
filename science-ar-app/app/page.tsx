@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Atom, Dna, Zap, ArrowRight, Beaker } from 'lucide-react';
+import { Atom, Zap, ArrowRight, Beaker } from 'lucide-react';
 
 export default function Home() {
   const subjects = [
@@ -19,13 +19,6 @@ export default function Home() {
       color: '#ef4444',
       href: '/chemistry'
     },
-    {
-      title: 'Biology',
-      description: 'Discover cells, DNA, organs, and ecosystems interactively',
-      icon: Dna,
-      color: '#22c55e',
-      href: '/biology'
-    }
   ];
 
   return (
@@ -54,7 +47,7 @@ export default function Home() {
         </div>
 
         {/* Subject Cards */}
-        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-16">
+        <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto mb-16">
           {subjects.map((subject) => {
             const Icon = subject.icon;
             return (

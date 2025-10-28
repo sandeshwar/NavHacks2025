@@ -1,10 +1,10 @@
 # ScienceAR Lab 🔬
 
-An interactive AR web application for learning Physics, Chemistry, and Biology through immersive 2D and 3D visualizations.
+An interactive AR web application for learning Physics and Chemistry through immersive 2D and 3D visualizations.
 
 ## Features
 
-### 🌟 Three Subject Modules
+### 🌟 Two Subject Modules
 
 - **Physics Lab** - Interactive simulations including:
   - Pendulum motion and harmonic oscillation
@@ -18,11 +18,6 @@ An interactive AR web application for learning Physics, Chemistry, and Biology t
   - Crystal lattice structures
   - Interactive periodic table
 
-- **Biology Lab** - Life science explorations with:
-  - DNA double helix structure
-  - Cell organelle visualization
-  - Human heart anatomy
-  - Photosynthesis process
 
 ### ✨ Key Technologies
 
@@ -64,12 +59,9 @@ science-ar-app/
 │   ├── physics/
 │   │   ├── page.tsx          # Physics module
 │   │   └── demos/            # Physics demonstrations
-│   ├── chemistry/
-│   │   ├── page.tsx          # Chemistry module
-│   │   └── demos/            # Chemistry demonstrations
-│   └── biology/
-│       ├── page.tsx          # Biology module
-│       └── demos/            # Biology demonstrations
+│   └── chemistry/
+│       ├── page.tsx          # Chemistry module
+│       └── demos/            # Chemistry demonstrations
 ├── components/
 │   ├── Scene3D.tsx           # 3D canvas wrapper
 │   ├── ModuleLayout.tsx      # Shared module layout
@@ -84,7 +76,6 @@ The app uses Next.js App Router for modular navigation:
 - `/` - Home page
 - `/physics` - Physics experiments
 - `/chemistry` - Chemistry visualizations
-- `/biology` - Biology explorations
 
 ## Controls
 

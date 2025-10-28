@@ -6,10 +6,10 @@ import InteractiveCard from '@/components/InteractiveCard';
 import Scene3D from '@/components/Scene3D';
 import { Orbit, Waves, Magnet, Zap, Scale } from 'lucide-react';
 import PendulumDemo from './demos/PendulumDemo';
+import NewtonLawsDemo from './demos/NewtonLawsDemo';
 import WaveDemo from './demos/WaveDemo';
 import MagneticFieldDemo from './demos/MagneticFieldDemo';
 import ElectricCircuitDemo from './demos/ElectricCircuitDemo';
-import NewtonLawsDemo from './demos/NewtonLawsDemo';
 
 type DemoType = 'pendulum' | 'wave' | 'magnetic' | 'circuit' | 'newton' | null;
 
@@ -80,7 +80,7 @@ export default function PhysicsPage() {
 
         {/* 3D Viewer / 2D Infographic - 3 columns */}
         <div className="lg:col-span-3">
-          <div className="bg-slate-900 rounded-lg border border-slate-800 overflow-hidden" style={{ height: '700px' }}>
+          <div className="bg-slate-900 rounded-lg border border-slate-800 overflow-hidden" style={{ height: '800px' }}>
             {activeDemo === 'newton' ? (
               ActiveComponent && <ActiveComponent />
             ) : (

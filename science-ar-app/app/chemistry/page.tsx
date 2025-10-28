@@ -81,7 +81,7 @@ export default function ChemistryPage() {
 
         {/* 3D Viewer / 2D Infographic - 3 columns */}
         <div className="lg:col-span-3">
-          <div className="bg-slate-900 rounded-lg border border-slate-800 overflow-hidden" style={{ height: '700px' }}>
+          <div className="bg-slate-900 rounded-lg border border-slate-800 overflow-hidden" style={{ height: '800px' }}>
             {activeDemo === 'photosynthesis' ? (
               ActiveComponent && <ActiveComponent />
             ) : (

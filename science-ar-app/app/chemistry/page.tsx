@@ -1,20 +1,39 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ModuleLayout from '@/components/ModuleLayout';
 import InteractiveCard from '@/components/InteractiveCard';
 import Scene3D from '@/components/Scene3D';
-import { Atom, FlaskConical, Sparkles, Grid3x3, Leaf } from 'lucide-react';
+import AchievementsPanel from '@/components/AchievementsPanel';
+import { Atom, FlaskConical, Sparkles, Grid3x3, Leaf, Dna, Beaker, Target } from 'lucide-react';
 import WaterMoleculeDemo from './demos/WaterMoleculeDemo';
 import ChemicalReactionDemo from './demos/ChemicalReactionDemo';
 import CrystalStructureDemo from './demos/CrystalStructureDemo';
 import PeriodicTableDemo from './demos/PeriodicTableDemo';
 import PhotosynthesisDemo from './demos/PhotosynthesisDemo';
+import BiochemistryDemo, { BiochemistryInfo } from './demos/BiochemistryDemo';
+import OrganicChemistryDemo, { OrganicChemistryInfo } from './demos/OrganicChemistryDemo';
+import ChallengesDemo from './demos/ChallengesDemo';
+import { getProgressTracker } from '@/utils/progressTracker';
 
-type DemoType = 'water' | 'reaction' | 'crystal' | 'periodic' | 'photosynthesis' | null;
+type DemoType = 'water' | 'reaction' | 'crystal' | 'periodic' | 'photosynthesis' | 'biochemistry' | 'organic' | 'challenges' | null;
 
 export default function ChemistryPage() {
   const [activeDemo, setActiveDemo] = useState<DemoType>('water');
+
+  // Track module visits and time spent
+  useEffect(() => {
+    if (activeDemo) {
+      const tracker = getProgressTracker();
+      tracker.visitModule(activeDemo);
+
+      const startTime = Date.now();
+      return () => {
+        const timeSpent = Math.floor((Date.now() - startTime) / 1000);
+        tracker.addTimeSpent(activeDemo, timeSpent);
+      };
+    }
+  }, [activeDemo]);
 
   const demos = [
     {
@@ -51,11 +70,38 @@ export default function ChemistryPage() {
       description: 'Animated cause-effect infographic',
       icon: <Leaf className="w-6 h-6 text-green-400" />,
       component: PhotosynthesisDemo
+    },
+    {
+      id: 'biochemistry' as DemoType,
+      title: 'Biochemistry',
+      description: 'DNA, proteins, and biological molecules',
+      icon: <Dna className="w-6 h-6 text-blue-400" />,
+      component: BiochemistryDemo
+    },
+    {
+      id: 'organic' as DemoType,
+      title: 'Organic Chemistry',
+      description: 'Functional groups and organic structures',
+      icon: <Beaker className="w-6 h-6 text-emerald-400" />,
+      component: OrganicChemistryDemo
+    },
+    {
+      id: 'challenges' as DemoType,
+      title: 'Challenges',
+      description: 'Test your chemistry knowledge',
+      icon: <Target className="w-6 h-6 text-orange-400" />,
+      component: ChallengesDemo
     }
   ];
 
   const ActiveComponent = demos.find(d => d.id === activeDemo)?.component;
   const cameraPosition: [number, number, number] = activeDemo === 'periodic' ? [0, 0, 9] : [0, 0, 8];
+  
+  // Check if current demo is 2D (no 3D viewer needed)
+  const is2DDemo = activeDemo === 'photosynthesis' || activeDemo === 'challenges';
+  
+  // Check if current demo has info component
+  const hasInfoComponent = activeDemo === 'biochemistry' || activeDemo === 'organic';
 
   return (
     <ModuleLayout
@@ -66,7 +112,7 @@ export default function ChemistryPage() {
       <div className="grid lg:grid-cols-4 gap-6">
         {/* Sidebar - 1 column */}
         <div className="lg:col-span-1 space-y-3">
-          <h2 className="text-lg font-semibold text-white mb-3">Experiments</h2>
+          <h2 className="text-lg font-semibold text-primary mb-3">Experiments</h2>
           {demos.map((demo) => (
             <InteractiveCard
               key={demo.id}
@@ -81,8 +127,8 @@ export default function ChemistryPage() {
 
         {/* 3D Viewer / 2D Infographic - 3 columns */}
         <div className="lg:col-span-3">
-          <div className="bg-slate-900 rounded-lg border border-slate-800 overflow-hidden" style={{ height: '800px' }}>
-            {activeDemo === 'photosynthesis' ? (
+          <div className="bg-secondary rounded-lg border border-primary overflow-hidden" style={{ height: '800px' }}>
+            {is2DDemo ? (
               ActiveComponent && <ActiveComponent />
             ) : (
               <Scene3D cameraPosition={cameraPosition}>
@@ -92,15 +138,22 @@ export default function ChemistryPage() {
           </div>
           
           {/* Controls Info */}
-          {activeDemo !== 'photosynthesis' && (
-            <div className="mt-4 p-3 bg-slate-900 rounded-lg border border-slate-800">
-              <p className="text-slate-400 text-sm">
-                <strong className="text-white">Controls:</strong> Left-click + drag to rotate • Right-click + drag to pan • Scroll to zoom
+          {!is2DDemo && (
+            <div className="mt-4 p-3 bg-secondary rounded-lg border border-primary">
+              <p className="text-secondary text-sm">
+                <strong className="text-primary">Controls:</strong> Left-click + drag to rotate • Right-click + drag to pan • Scroll to zoom
               </p>
             </div>
           )}
+
+          {/* Real-World Applications Info */}
+          {hasInfoComponent && activeDemo === 'biochemistry' && <BiochemistryInfo />}
+          {hasInfoComponent && activeDemo === 'organic' && <OrganicChemistryInfo />}
         </div>
       </div>
+      
+      {/* Achievements Panel */}
+      <AchievementsPanel />
     </ModuleLayout>
   );
 }

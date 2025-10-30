@@ -65,7 +65,7 @@ export default function PhysicsPage() {
       <div className="grid lg:grid-cols-4 gap-6">
         {/* Sidebar - 1 column */}
         <div className="lg:col-span-1 space-y-3">
-          <h2 className="text-lg font-semibold text-white mb-3">Experiments</h2>
+          <h2 className="text-lg font-semibold text-primary mb-3">Experiments</h2>
           {demos.map((demo) => (
             <InteractiveCard
               key={demo.id}
@@ -80,7 +80,7 @@ export default function PhysicsPage() {
 
         {/* 3D Viewer / 2D Infographic - 3 columns */}
         <div className="lg:col-span-3">
-          <div className="bg-slate-900 rounded-lg border border-slate-800 overflow-hidden" style={{ height: '800px' }}>
+          <div className="bg-secondary rounded-lg border border-primary overflow-hidden" style={{ height: '800px' }}>
             {activeDemo === 'newton' ? (
               ActiveComponent && <ActiveComponent />
             ) : (
@@ -92,9 +92,9 @@ export default function PhysicsPage() {
           
           {/* Controls Info */}
           {activeDemo !== 'newton' && (
-            <div className="mt-4 p-3 bg-slate-900 rounded-lg border border-slate-800">
-              <p className="text-slate-400 text-sm">
-                <strong className="text-white">Controls:</strong> Left-click + drag to rotate • Right-click + drag to pan • Scroll to zoom
+            <div className="mt-4 p-3 bg-secondary rounded-lg border border-primary">
+              <p className="text-secondary text-sm">
+                <strong className="text-primary">Controls:</strong> Left-click + drag to rotate • Right-click + drag to pan • Scroll to zoom
               </p>
             </div>
           )}

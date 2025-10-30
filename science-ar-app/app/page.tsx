@@ -22,25 +22,25 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-background">
       {/* Header Bar */}
-      <div className="border-b border-slate-800 bg-slate-900/50 backdrop-blur-sm">
+      <div className="border-b border-primary bg-secondary/50 backdrop-blur-sm">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Beaker className="w-8 h-8 text-blue-500" />
-            <h1 className="text-2xl font-bold text-white">ScienceAR Lab</h1>
+            <Beaker className="w-8 h-8 text-accent-primary" />
+            <h1 className="text-2xl font-bold text-primary">ScienceAR Lab</h1>
           </div>
-          <div className="text-sm text-slate-400">Interactive Science Simulations</div>
+          <div className="text-sm text-secondary">Interactive Science Simulations</div>
         </div>
       </div>
 
       <div className="container mx-auto px-6 py-16">
         {/* Hero Section */}
         <div className="text-center mb-16 max-w-4xl mx-auto">
-          <h2 className="text-5xl font-bold text-white mb-6">
+          <h2 className="text-5xl font-bold text-primary mb-6">
             Advanced Scientific Visualization Platform
           </h2>
-          <p className="text-xl text-slate-400 leading-relaxed">
+          <p className="text-xl text-secondary leading-relaxed">
             Explore complex scientific concepts through interactive 3D simulations and augmented reality. 
             Built for students, educators, and researchers.
           </p>
@@ -54,7 +54,7 @@ export default function Home() {
               <Link
                 key={subject.title}
                 href={subject.href}
-                className="group relative overflow-hidden rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 transition-all duration-300"
+                className="group relative overflow-hidden rounded-lg bg-secondary border border-primary hover:border-secondary transition-all duration-300"
               >
                 <div className="p-8">
                   <div 
@@ -64,15 +64,15 @@ export default function Home() {
                     <Icon className="w-7 h-7" style={{ color: subject.color }} />
                   </div>
                   
-                  <h3 className="text-2xl font-bold text-white mb-3">
+                  <h3 className="text-2xl font-bold text-primary mb-3">
                     {subject.title}
                   </h3>
                   
-                  <p className="text-slate-400 mb-6 leading-relaxed">
+                  <p className="text-secondary mb-6 leading-relaxed">
                     {subject.description}
                   </p>
                   
-                  <div className="flex items-center text-slate-300 font-medium group-hover:translate-x-1 transition-transform duration-300">
+                  <div className="flex items-center text-secondary font-medium group-hover:translate-x-1 transition-transform duration-300">
                     Launch Module
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </div>
@@ -89,17 +89,17 @@ export default function Home() {
 
         {/* Features Grid */}
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          <div className="bg-slate-900 border border-slate-800 rounded-lg p-6 text-center">
-            <div className="text-3xl font-bold text-blue-500 mb-2">12+</div>
-            <div className="text-slate-400">Interactive Simulations</div>
+          <div className="bg-secondary border border-primary rounded-lg p-6 text-center">
+            <div className="text-3xl font-bold text-accent-primary mb-2">12+</div>
+            <div className="text-secondary">Interactive Simulations</div>
           </div>
-          <div className="bg-slate-900 border border-slate-800 rounded-lg p-6 text-center">
-            <div className="text-3xl font-bold text-blue-500 mb-2">3D/AR</div>
-            <div className="text-slate-400">Real-time Rendering</div>
+          <div className="bg-secondary border border-primary rounded-lg p-6 text-center">
+            <div className="text-3xl font-bold text-accent-primary mb-2">3D/AR</div>
+            <div className="text-secondary">Real-time Rendering</div>
           </div>
-          <div className="bg-slate-900 border border-slate-800 rounded-lg p-6 text-center">
-            <div className="text-3xl font-bold text-blue-500 mb-2">WebGL</div>
-            <div className="text-slate-400">Hardware Accelerated</div>
+          <div className="bg-secondary border border-primary rounded-lg p-6 text-center">
+            <div className="text-3xl font-bold text-accent-primary mb-2">WebGL</div>
+            <div className="text-secondary">Hardware Accelerated</div>
           </div>
         </div>
       </div>
